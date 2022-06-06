@@ -1,22 +1,3 @@
-# webpack react demo
+# Sage Client
 
-## 安装
-```
-yarn --development 
-
-// or
-
-npm install --development 
-```
-
-## 测试
-
-```
-npm start
-```
-
-## 构建
-
-```
-npm run build
-```
+In-progress client supported by Mint Green Recipes API (will change all names to Sage in due time). Look up recipes based on your ingredients, instead of the other way around.
