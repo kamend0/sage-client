@@ -13,50 +13,41 @@ export default class Homepage extends Component {
     constructor(props) {
         super(props);
 
-        // // Bind context to the handler function
-        this.handler = this.handler.bind(this);
-
         // Set state
         this.state = {
-            query: 'None yet',
+            query: new URLSearchParams(window.location.search).get('s'),
         };
     }
 
-    /*
-    NOTE: React errors silently if parent component has no handler,
-    but handler() is passed to child component, AND child component
-    uses the handler. Sneaky issue.
-    */
-    handler(queryState) {
-        this.setState({
-            query: queryState,
-        });
-    }
-
-    // iteratequery = () => {
-    //     this.setState({
-    //         query: this.state.query + 1,
-    //     });
-    // }
-
     render() {
+        // First, check if anything has been entered
+        // Then render based on presence of input
+        // TODO: input checking should probably go here
+        const currentQuery = this.state.query;
+        let queryInfo;
+        if (currentQuery) {
+            // User gave a query; check it, call API, etc.
+            // When Results component exists, this could be: queryInfo = <Results />
+            queryInfo = (
+                <div>
+                    <h2>You searched: {currentQuery}</h2>
+                    <h2>The type of the query: {typeof currentQuery}</h2>
+                    <h2>Length of query provided: {currentQuery.length}</h2>
+                </div>
+            );
+        } else {
+            queryInfo = (
+                // User didn't provide a query yet/on default home page
+                <div>
+                    <h2>Go ahead and provide a search for me</h2>
+                </div>
+            );
+        }
+
         return (
             <div>
-                <h1>query is: { this.state.query }</h1>
-
-                {/* This works: */}
-                {/* <button onClick={() => this.setState({ query: this.state.query + 1 })}>
-                    Working Button
-                </button> */}
-
-                {/* This doesn't: */}
-                {/* <button onClick={this.iteratequery}>Broken Button</button> */}
-
-                {/* This works now: */}
-                {/* <SearchBar handler={this.handler} /> */}
-
-                {/* Getting data from SearchBar: */}
-                <SearchBar onClick={this.handler} />
+                <SearchBar />
+                { queryInfo }
             </div>
         );
     }
