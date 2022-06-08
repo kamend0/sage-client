@@ -19,24 +19,24 @@ export default class Homepage extends Component {
             query: new URLSearchParams(window.location.search).get('s'),
             isLoaded: false,
             resp: [],
-            userId: 0,
-            id: 0,
-            title: '',
-            completed: false,
+            // userId: 0,
+            // id: 0,
+            // title: '',
+            // completed: false,
         };
     }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/todos/1')
+        fetch('https://jsonplaceholder.typicode.com/users')
             .then(result => result.json())
             .then((data) => {
                 this.setState({
                     isLoaded: true,
                     resp: data,
-                    userId: data.userId,
-                    id: data.id,
-                    title: data.title,
-                    completed: data.completed,
+                    // userId: data.userId,
+                    // id: data.id,
+                    // title: data.title,
+                    // completed: data.completed,
                 });
             },
           // Note: it's important to handle errors here
@@ -56,6 +56,7 @@ export default class Homepage extends Component {
         // Then render based on presence of input
         // TODO: input checking should probably go here
         const currentQuery = this.state.query;
+        // const respone = this.state.resp[1].id;
         // const resultsLoaded = this.state.isLoaded;
         let queryInfo;
         if (currentQuery) {
@@ -70,11 +71,17 @@ export default class Homepage extends Component {
                     <h2>Is loaded?: {String(this.state.isLoaded)}</h2>
                     <h2>Results from call:</h2>
                     <div>
-                        Data response: {String(this.state.resp)} <br />
-                        userId: {String(this.state.userId)} <br />
+                        {/* Username: {String(this.state.resp.data.username)} <br /> */}
+                        JSON: {JSON.stringify(this.state.resp[1])} <br />
+                        {/* List JSON Data has to be accessed via .map() */}
+                        Map: {this.state.resp.map(userData =>
+                            userData.name)
+                        }
+                        {/* Response obj: {respone} */}
+                        {/* userId: {String(this.state.userId)} <br />
                         id: {String(this.state.id)} <br />
                         title: {String(this.state.title)} <br />
-                        completed: {String(this.state.completed)}
+                        completed: {String(this.state.completed)} */}
                     </div>
                 </div>
             );
