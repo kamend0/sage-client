@@ -18,22 +18,27 @@ export default class Homepage extends Component {
         this.state = {
             query: new URLSearchParams(window.location.search).get('s'),
             isLoaded: false,
-            resp: [],
-            // userId: 0,
-            // id: 0,
-            // title: '',
-            // completed: false,
+            resp: '',
+            title: '',
+            ingredients: [],
+            instructions: '',
+            match: 0.0,
         };
     }
 
     componentDidMount() {
-        fetch('https://mint-green-recipes.herokuapp.com/recipes/?ingredients=tomatoes,bell%20pepper,potatoes,salt,cream,chicken,bacon')
+        // URL should provide only one response: Epi's 50-Ingredient Super Bowl Nachos
+        fetch('https://mint-green-recipes.herokuapp.com/recipes/?ingredients=tomatoes,bell%20pepper,potatoes,salt,cream,chicken,bacon,garlic')
+        // fetch('http://jsonplaceholder.typicode.com/users/1')
             .then(result => result.json())
             .then((data) => {
                 this.setState({
                     isLoaded: true,
-                    resp: data['1'],
-                    // userId: data.userId,
+                    resp: JSON.stringify(data[0]),
+                    title: data[0].title,
+                    ingredients: data[0].ingredients,
+                    instructions: data[0].instructions,
+                    match: data[0].match,
                     // id: data.id,
                     // title: data.title,
                     // completed: data.completed,
@@ -72,11 +77,15 @@ export default class Homepage extends Component {
                     <h2>Results from call:</h2>
                     <div>
                         {/* Username: {String(this.state.resp.data.username)} <br /> */}
-                        JSON: {JSON.stringify(this.state.resp)} <br />
+                        {/* JSON: <br /> {this.state.resp} <br /> */}
+                        Title: <br /> {this.state.title} <br />
+                        Ingredients: <br /> {this.state.ingredients.join(', ')} <br />
+                        Match: <br /> {this.state.match} <br /><br />
+                        Instructions: <br /> {this.state.instructions} <br />
                         {/* List JSON Data has to be accessed via .map() */}
-                        Map: {this.state.resp.map(recipeData =>
+                        {/* Map: {this.state.resp.map(recipeData =>
                             recipeData.title)
-                        }
+                        } */}
                         {/* Response obj: {respone} */}
                         {/* userId: {String(this.state.userId)} <br />
                         id: {String(this.state.id)} <br />
