@@ -27,12 +27,12 @@ export default class Homepage extends Component {
     }
 
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/users')
+        fetch('https://mint-green-recipes.herokuapp.com/recipes/?ingredients=tomatoes,bell%20pepper,potatoes,salt,cream,chicken,bacon')
             .then(result => result.json())
             .then((data) => {
                 this.setState({
                     isLoaded: true,
-                    resp: data,
+                    resp: data['1'],
                     // userId: data.userId,
                     // id: data.id,
                     // title: data.title,
@@ -72,10 +72,10 @@ export default class Homepage extends Component {
                     <h2>Results from call:</h2>
                     <div>
                         {/* Username: {String(this.state.resp.data.username)} <br /> */}
-                        JSON: {JSON.stringify(this.state.resp[1])} <br />
+                        JSON: {JSON.stringify(this.state.resp)} <br />
                         {/* List JSON Data has to be accessed via .map() */}
-                        Map: {this.state.resp.map(userData =>
-                            userData.name)
+                        Map: {this.state.resp.map(recipeData =>
+                            recipeData.title)
                         }
                         {/* Response obj: {respone} */}
                         {/* userId: {String(this.state.userId)} <br />
