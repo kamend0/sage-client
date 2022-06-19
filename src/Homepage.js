@@ -28,8 +28,11 @@ export default class Homepage extends Component {
 
     componentDidMount() {
         // URL should provide only one response: Epi's 50-Ingredient Super Bowl Nachos
-        fetch('https://mint-green-recipes.herokuapp.com/recipes/?ingredients=tomatoes,bell%20pepper,potatoes,salt,cream,chicken,bacon,garlic')
+        const apiURL = `https://mint-green-recipes.herokuapp.com/recipes/?ingredients=${
+            removeSpaces(this.state.query)}`;
+        // fetch('https://mint-green-recipes.herokuapp.com/recipes/?ingredients=tomatoes,bell%20pepper,potatoes,salt,cream,chicken,bacon,garlic')
         // fetch('http://jsonplaceholder.typicode.com/users/1')
+        fetch(apiURL)
             .then(result => result.json())
             .then((data) => {
                 this.setState({
@@ -71,9 +74,9 @@ export default class Homepage extends Component {
                 <div>
                     <h2>Cleaned search: {removeSpaces(currentQuery)}</h2>
                     {/* <h2>Cleaned search: {currentQuery.trim()}</h2> */}
-                    <h2>The type of the query: {typeof currentQuery}</h2>
+                    {/* <h2>The type of the query: {typeof currentQuery}</h2>
                     <h2>Length of query provided: {currentQuery.length}</h2>
-                    <h2>Is loaded?: {String(this.state.isLoaded)}</h2>
+                    <h2>Is loaded?: {String(this.state.isLoaded)}</h2> */}
                     <h2>Results from call:</h2>
                     <div>
                         {/* Username: {String(this.state.resp.data.username)} <br /> */}

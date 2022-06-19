@@ -16,7 +16,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h1>App</h1>
+                <h1>Sage Recipes</h1>
                 <Homepage />
             </div>
             // <div className="App">
