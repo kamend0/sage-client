@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import SearchBar from './SearchBar';
 import { removeSpaces } from './utils/inputChecks';
 
-// Child-Parent Communication SO:
-// https://stackoverflow.com/questions/35537229/how-can-i-update-the-parents-state-in-react
 
 export default class Homepage extends Component {
     /*
@@ -28,6 +26,7 @@ export default class Homepage extends Component {
         /*
         TO-DO:
         - Input checking: don't allow invalid queries
+        - error handling: isLoaded the same regardless of error
         */
         const apiURL = `https://mint-green-recipes.herokuapp.com/recipes/?ingredients=${
             removeSpaces(this.state.query)}`;
@@ -51,15 +50,17 @@ export default class Homepage extends Component {
                     recipeInstructions: tmpInstructions,
                 });
             },
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
-                  (error) => {
-                      this.setState({
-                          isLoaded: true,
-                          error,
-                      });
-                  },
+            /*
+            Note: it's important to handle errors here
+            instead of a catch() block so that we don't swallow
+            exceptions from actual bugs in components.
+            */
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error,
+                });
+            },
           );
     }
 
