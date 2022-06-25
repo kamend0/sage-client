@@ -19,6 +19,7 @@ export default class Homepage extends Component {
             recipeTitles: [],
             recipeIngredients: [],
             recipeInstructions: [],
+            recipeImageNames: [],
         };
     }
 
@@ -28,7 +29,7 @@ export default class Homepage extends Component {
         - Input checking: don't allow invalid queries
         - error handling: isLoaded the same regardless of error
         */
-        const apiURL = `https://mint-green-recipes.herokuapp.com/recipes/?ingredients=${
+        const apiURL = `https://sage-recipes.herokuapp.com/recipes/?ingredients=${
             removeSpaces(this.state.query)}`;
         fetch(apiURL)
             .then(result => result.json())
@@ -36,11 +37,13 @@ export default class Homepage extends Component {
                 const tmpTitles = [];
                 const tmpIngredients = [];
                 const tmpInstructions = [];
+                const tmpImageNames = [];
 
                 for (let i = 0; i < Object.keys(data).length; i += 1) {
                     tmpTitles.push(data[i].title);
                     tmpIngredients.push(data[i].ingredients);
                     tmpInstructions.push(data[i].instructions);
+                    tmpImageNames.push(data[i].imageName);
                 }
 
                 this.setState({
@@ -48,6 +51,7 @@ export default class Homepage extends Component {
                     recipeTitles: tmpTitles,
                     recipeIngredients: tmpIngredients,
                     recipeInstructions: tmpInstructions,
+                    recipeImageNames: tmpImageNames,
                 });
             },
             /*
@@ -55,23 +59,25 @@ export default class Homepage extends Component {
             instead of a catch() block so that we don't swallow
             exceptions from actual bugs in components.
             */
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error,
-                });
-            },
+                  (error) => {
+                      this.setState({
+                          isLoaded: true,
+                          error,
+                      });
+                  },
           );
     }
 
     render() {
         let queryInfo;
         const isLoaded = this.state.isLoaded;
+        const imageBaseURL = 'https://sage-recipe-images.s3.us-west-1.amazonaws.com/';
 
         // Data from API
         const recipeTitles = this.state.recipeTitles;
         const recipeIngredients = this.state.recipeIngredients;
         const recipeInstructions = this.state.recipeInstructions;
+        const recipeImageNames = this.state.recipeImageNames;
 
         if (isLoaded) {
             queryInfo = (
@@ -82,6 +88,12 @@ export default class Homepage extends Component {
                             Recipe {i}: {recipeTitles[t]}<br />
                             Ingredients: {recipeIngredients[t].join(', ')}<br />
                             Instructions: {recipeInstructions[t]}<br />
+                            Image:
+                            <br />
+                            <img
+                                src={`${imageBaseURL + recipeImageNames[t]}.jpg`}
+                                alt={recipeTitles[t]} />
+                            <br />
                             <br /><br />
                         </p>))}
                 </div>);
