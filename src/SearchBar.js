@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+/*
+TO-DO: Convert to function, since we now know that we don't
+    need state.
+*/
 // eslint-disable-next-line react/prefer-stateless-function
 export default class SearchBar extends Component {
     render() {
@@ -12,7 +16,6 @@ export default class SearchBar extends Component {
                     name="s" />
                 <button type="submit">Search</button>
             </form>
-
         );
     }
 }
