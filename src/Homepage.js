@@ -24,10 +24,10 @@ export default class Homepage extends Component {
 
             // Offline Testing Values
             isLoaded: true,
-            recipeTitles: ['TitleOne'],
-            recipeIngredients: [['One ing', 'Two ing']],
-            recipeInstructions: ['You do one, and two'],
-            recipeImageNames: ['name-of-image'],
+            recipeTitles: ['TitleOne', 'TitleTwo'],
+            recipeIngredients: [['One ing', 'Two ing'], ['Three ing', 'Four ing']],
+            recipeInstructions: ['You do one, and two', 'Do three and four'],
+            recipeImageNames: ['name-of-image-one', 'other-name-of-image'],
         };
     }
 
@@ -78,42 +78,19 @@ export default class Homepage extends Component {
     // }
 
     render() {
-        let queryInfo;
+        let resultsSection;
         const isLoaded = this.state.isLoaded;
-        // const imageBaseURL = 'https://sage-recipe-images.s3.us-west-1.amazonaws.com/';
-
-        // Data from API
-        // const recipeTitles = this.state.recipeTitles;
-        // const recipeIngredients = this.state.recipeIngredients;
-        // const recipeInstructions = this.state.recipeInstructions;
-        // const recipeImageNames = this.state.recipeImageNames;
 
         if (isLoaded) {
-            queryInfo = (
+            resultsSection = (
                 <Results
                     recipeTitles={this.state.recipeTitles}
                     recipeIngredients={this.state.recipeIngredients}
                     recipeInstructions={this.state.recipeInstructions}
                     recipeImageNames={this.state.recipeImageNames} />
             );
-                // <div>
-                //     {/* All objects will have the same number of elements, so single index is OK */}
-                //     {Object.keys(recipeTitles).map((t, i) =>
-                //         (<p key={recipeTitles[t]}>
-                //             Recipe {i}: {recipeTitles[t]}<br />
-                //             Ingredients: {recipeIngredients[t].join(', ')}<br />
-                //             Instructions: {recipeInstructions[t]}<br />
-                //             Image:
-                //             <br />
-                //             <img
-                //                 src={`${imageBaseURL + recipeImageNames[t]}.jpg`}
-                //                 alt={recipeTitles[t]} />
-                //             <br />
-                //             <br /><br />
-                //         </p>))}
-                // </div>);
         } else {
-            queryInfo = (
+            resultsSection = (
                 // User didn't provide a query yet/on default home page
                 <div key="No-response">
                     <h2>Go ahead and provide a search for me</h2>
@@ -124,7 +101,7 @@ export default class Homepage extends Component {
         return (
             <div>
                 <SearchBar />
-                { queryInfo }
+                { resultsSection }
             </div>
         );
     }
