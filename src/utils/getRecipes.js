@@ -25,7 +25,7 @@ export function getRecipes(setState, cleanIngredientsQuery) {
                 recipeImageNames: tmpImageNames,
             });
         },
-              error => // To-Do: Research if this is the right way to handle errors
+              error => // Research if this is the right way to handle errors
               setState({
                   isLoaded: true,
                   error,
