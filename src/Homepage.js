@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SearchBar from './SearchBar';
-import Results from './Results';
+import SearchBar from './components/SearchBar';
+import Results from './components/Results';
 import { removeSpaces } from './utils/inputChecks';
 import { getRecipes } from './utils/getRecipes';
 
@@ -28,21 +28,28 @@ export default class Homepage extends Component {
         - error handling
         - currently ignoring match scores
         */
-        const cleanQuery = removeSpaces(this.state.query);
-        getRecipes(this.setState.bind(this), cleanQuery);
+        if (this.state.query) {
+            const cleanQuery = removeSpaces(this.state.query);
+            getRecipes(this.setState.bind(this), cleanQuery);
+        }
     }
-
 
     render() {
         let resultsSection;
 
-        if (this.state.isLoaded) {
+        if (this.state.query && this.state.isLoaded) {
             resultsSection = (
                 <Results
                     recipeTitles={this.state.recipeTitles}
                     recipeIngredients={this.state.recipeIngredients}
                     recipeInstructions={this.state.recipeInstructions}
                     recipeImageNames={this.state.recipeImageNames} />
+            );
+        } else if (this.state.query) {
+            resultsSection = (
+                <div key="Loading">
+                    <h2>Getting your recipes...</h2>
+                </div>
             );
         } else {
             resultsSection = (
