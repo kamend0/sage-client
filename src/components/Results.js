@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Results = (props) => {
     const imageBaseURL = 'https://sage-recipe-images.s3.us-west-1.amazonaws.com/';
 
