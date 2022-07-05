@@ -10,6 +10,6 @@ const SearchBar = () => (
             name="q" />
         <button type="submit" id="search-bar-submit">Search</button>
     </form>
-    );
+);
 
 export default SearchBar;
