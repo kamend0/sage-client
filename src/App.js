@@ -1,34 +1,24 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
-// import './App.css';
 import Homepage from './Homepage';
+import './index.css';
 
 class App extends Component {
     state = { loading: false };
 
-    componentDidMount() {
-        // 测试 devServer 的代理功能
-        // fetch('/api/category')
-        //     .then(resp => resp.json())
-        //     .then(res => console.log('here here', res));
-    }
-
+    // TO-DO: Get header title to link to home page
     render() {
         return (
-            <div>
-                <h1>Sage Recipes</h1>
+            <div id="all-site">
+                <header>
+                    <p id="header-title">
+                        Sage Recipes
+                    </p>
+                    <p id="header-subtitle">
+                        Find recipes using the ingredients you already have
+                    </p>
+                </header>
                 <Homepage />
             </div>
-            // <div className="App">
-            //     <div className="App-header">
-            //         <img src={logo} className="App-logo" alt="logo" />
-            //         <h2>Welcome to React</h2>
-            //     </div>
-            //     <p>{ this.state.loading.toString() }</p>
-            //     <p className="App-intro">
-            //         To get started, edit <code>src/App.js</code> and save to reload.
-            //     </p>
-            // </div>
         );
     }
 }

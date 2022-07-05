@@ -3,6 +3,7 @@ import SearchBar from './components/SearchBar';
 import Results from './components/Results';
 import { removeSpaces } from './utils/inputChecks';
 import { getRecipes } from './utils/getRecipes';
+import './index.css';
 
 
 export default class Homepage extends Component {
@@ -10,7 +11,7 @@ export default class Homepage extends Component {
         super(props);
 
         this.state = {
-            query: new URLSearchParams(window.location.search).get('s'),
+            query: new URLSearchParams(window.location.search).get('q'),
             isLoaded: false,
             recipeTitles: [],
             recipeIngredients: [],
@@ -37,7 +38,7 @@ export default class Homepage extends Component {
     render() {
         let resultsSection;
 
-        if (this.state.query && this.state.isLoaded) {
+        if (this.state.isLoaded && (this.state.recipeTitles.length > 0)) {
             resultsSection = (
                 <Results
                     recipeTitles={this.state.recipeTitles}
@@ -45,23 +46,30 @@ export default class Homepage extends Component {
                     recipeInstructions={this.state.recipeInstructions}
                     recipeImageNames={this.state.recipeImageNames} />
             );
-        } else if (this.state.query) {
+        } else if (this.state.isLoaded && (this.state.recipeTitles.length === 0)) {
             resultsSection = (
-                <div key="Loading">
-                    <h2>Getting your recipes...</h2>
-                </div>
+                <p id="no-results-message">
+                    No results found. Please try a different search.
+                </p>
             );
-        } else {
+        } else if (this.state.query) { // Query provided, but not yet loaded
             resultsSection = (
-                // User didn't provide a query yet/on default home page
-                <div key="No-response">
-                    <h2>Go ahead and provide a search for me</h2>
-                </div>
+                <p id="loading-message">
+                    Looking for recipes...
+                </p>
             );
         }
+            // else {
+        //     resultsSection = (
+        //         // User didn't provide a query yet/on default home page
+        //         <div key="No-response">
+        //             <h2>Go ahead and provide a search for me</h2>
+        //         </div>
+        //     );
+        // }
 
         return (
-            <div>
+            <div id="body">
                 <SearchBar />
                 { resultsSection }
             </div>
